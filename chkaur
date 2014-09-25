@@ -10,13 +10,13 @@ lib32-dbus-glib        lib32-libindicator      lib32-tcp_wrappers
 lib32-dconf            lib32-libnl             libappindicator-gtk2
                                                libappindicator-gtk3
                                                libappindicator-sharp
-lib32-flex             lib32-libsoup           libdbusmenu
+lib32-flex             lib32-libsoup           libdbusmenu-glib
 lib32-gconf            lib32-libtirpc          libdbusmenu-gtk2
-lib32-gtk3             lib32-libusb            libgcrypt15
-                                               libindicator-gtk2
-lib32-js17             lib32-libwebp           libindicator-gtk3
-lib32-json-glib        lib32-libxkbcommon      tcp_wrappers
-                       lib32-libxkbcommon-x11
+lib32-gtk3             lib32-libusb            libdbusmenu-gtk3
+                                               libgcrypt15
+lib32-js17             lib32-libwebp           libindicator-gtk2
+lib32-json-glib        lib32-libxkbcommon      libindicator-gtk3
+                       lib32-libxkbcommon-x11  tcp_wrappers
 lib32-libappindicator  lib32-pam
 steam-native           open-fuse-iso
 )
