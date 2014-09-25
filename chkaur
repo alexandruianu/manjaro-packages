@@ -1,0 +1,43 @@
+#!/bin/bash
+# chkaur: utility to check updates from the AUR
+
+list=(
+lib32-at-spi2-atk      lib32-libdbusmenu-glib  lib32-polkit
+lib32-at-spi2-core     lib32-libdbusmenu-gtk2  lib32-rest
+lib32-colord           lib32-libgcrypt15       lib32-sdl2
+lib32-cracklib         lib32-libgusb           lib32-sdl2_image
+lib32-dbus-glib        lib32-libindicator      lib32-tcp_wrappers
+lib32-dconf            lib32-libnl             libappindicator-gtk2
+                                               libappindicator-gtk3
+                                               libappindicator-sharp
+lib32-flex             lib32-libsoup           libdbusmenu
+lib32-gconf            lib32-libtirpc          libdbusmenu-gtk2
+lib32-gtk3             lib32-libusb            libgcrypt15
+                                               libindicator-gtk2
+lib32-js17             lib32-libwebp           libindicator-gtk3
+lib32-json-glib        lib32-libxkbcommon      tcp_wrappers
+                       lib32-libxkbcommon-x11
+lib32-libappindicator  lib32-pam
+steam-native           open-fuse-iso
+)
+
+case "$1" in
+
+-i)
+	echo -e "\033[1mIgnored: \033[0m"
+	for ((i=0;i<${#ignore[@]};i++)); do
+		echo ${ignore[$i]}
+	done
+	;;
+*)
+	for ((i=0;i<${#list[@]};i++)); do
+		in_repo=$(/usr/bin/pacman -Ss ${list[$i]} | head -n 1 | cut -f 2 -d " ")
+		in_aur=$(/usr/bin/package-query -A ${list[$i]} | head -n 1 | cut -f 2 -d " ")
+		if [ "$in_repo" == "$in_aur" ]; then
+			echo "${list[$i]}: no change"
+		else
+			echo -e "${list[$i]}: \033[1m $in_repo -> $in_aur \033[0m"
+		fi
+	done
+	;;
+esac
