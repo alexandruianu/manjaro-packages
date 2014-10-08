@@ -18,7 +18,10 @@ lib32-js17             lib32-libwebp           libindicator-gtk2
 lib32-json-glib        lib32-libxkbcommon      libindicator-gtk3
                        lib32-libxkbcommon-x11  tcp_wrappers
 lib32-libappindicator  lib32-pam
-steam-native           open-fuse-iso
+steam-native           open-fuse-iso           yaourt-gui-manjaro
+bar-aint-recursive     bspwm                   sutils-git
+sxhkd                  termite                 vte3-select-text
+xboomx                 xtitle-git
 )
 
 case "$1" in
