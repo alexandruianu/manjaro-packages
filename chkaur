@@ -14,7 +14,7 @@ lib32-dconf            lib32-libnl             libappindicator-gtk2
 lib32-flex             lib32-libsoup           libdbusmenu-glib
 lib32-gconf            lib32-libtirpc          libdbusmenu-gtk2
 lib32-gtk3             lib32-libusb            libdbusmenu-gtk3
-sunflower                                      libgcrypt15
+sunflower              lib32-libpng12          libgcrypt15
 lib32-js17             lib32-libwebp           libindicator-gtk2
 lib32-json-glib        lib32-libxkbcommon      libindicator-gtk3
                        lib32-libxkbcommon-x11  tcp_wrappers
