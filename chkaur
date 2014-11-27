@@ -18,7 +18,7 @@ sunflower              lib32-libpng12          libgcrypt15
 lib32-js17             lib32-libwebp           libindicator-gtk2
 lib32-json-glib        lib32-libxkbcommon      libindicator-gtk3
                        lib32-libxkbcommon-x11  tcp_wrappers
-lib32-libappindicator  lib32-pam
+lib32-libappindicator  lib32-pam               obkey
 steam-native           open-fuse-iso           yaourt-gui-manjaro
 bar-aint-recursive     bspwm                   sutils-git
 sxhkd                  termite                 vte3-select-text
