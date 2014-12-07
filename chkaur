@@ -6,7 +6,7 @@ lib32-at-spi2-atk      lib32-libdbusmenu-glib  lib32-polkit
 lib32-at-spi2-core     lib32-libdbusmenu-gtk2  lib32-rest
 lib32-colord           lib32-libgcrypt15       lib32-sdl2
 lib32-cracklib         lib32-libgusb           lib32-sdl2_image
-lib32-smpeg                                    lib32-sdl_mixer
+lib32-smpeg            lxsession               lib32-sdl_mixer
 lib32-dbus-glib        lib32-libindicator      lib32-tcp_wrappers
 lib32-dconf            lib32-libnl             libappindicator-gtk2
                                                libappindicator-gtk3
