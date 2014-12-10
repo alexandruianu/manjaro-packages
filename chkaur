@@ -9,7 +9,7 @@ lib32-cracklib         lib32-libgusb           lib32-sdl2_image
 lib32-smpeg            lxsession               lib32-sdl_mixer
 lib32-dbus-glib        lib32-libindicator      lib32-tcp_wrappers
 lib32-dconf            lib32-libnl             libappindicator-gtk2
-                                               libappindicator-gtk3
+libcurl-gnutls         lib32-libcurl-gnutls    libappindicator-gtk3
                                                libappindicator-sharp
 lib32-flex             lib32-libsoup           libdbusmenu-glib
 lib32-gconf            lib32-libtirpc          libdbusmenu-gtk2
