@@ -23,6 +23,7 @@ steam-native           open-fuse-iso           yaourt-gui-manjaro
 bar-aint-recursive     bspwm                   sutils-git
 sxhkd                  termite                 vte3-select-text
 xboomx                 xtitle-git              qpdfview
+sakis3g
 )
 
 case "$1" in
