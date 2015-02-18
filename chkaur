@@ -20,10 +20,10 @@ lib32-json-glib        lib32-libxkbcommon      libindicator-gtk3
 libpng12               lib32-libxkbcommon-x11  tcp_wrappers
 lib32-libappindicator  lib32-pam               obkey
 steam-native           open-fuse-iso           yaourt-gui-manjaro
-bar-aint-recursive     bspwm                   sutils-git
-sxhkd                  termite                 vte3-select-text
+bar-aint-recursive                             sutils-git
+sakis3g                termite                 vte3-select-text
 xboomx                 xtitle-git              qpdfview
-sakis3g
+
 )
 
 case "$1" in
