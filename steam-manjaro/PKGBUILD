@@ -1,0 +1,111 @@
+# $Id$
+# Maintainer: Daniel Wallace <danielwallace at gtmanfred dot com>
+# Contributor: K900 <k0009000@gmail.com>
+# Manjaro implementation: Alexandru Ianu <alexandru@manjaro.org>
+pkgname=steam-manjaro
+_pkgname=steam
+pkgver=1.0.0.49
+pkgrel=8.2
+pkgdesc="Digital distribution client bootstrap package. Implementation for bleeding edge Arch-based rolling systems."
+arch=("i686" "x86_64")
+url="http://steampowered.com/"
+license=('custom')
+install=steam.install
+source=("http://repo.steampowered.com/$_pkgname/pool/$_pkgname/s/$_pkgname/${_pkgname}_$pkgver.tar.gz"
+        'lib32-flashplugin-path.patch'
+        'alsa_sdl_audiodriver.patch'
+        'lib_path_and_close_min.patch'
+        "https://www.dropbox.com/s/6mgbv16kijdbolg/steam-valvelib.desktop"
+        "https://www.dropbox.com/s/1zso4zuud3zz91l/steam-locallib.desktop"
+        "https://www.dropbox.com/s/psf9xgcu5we6b6t/steam-clean.desktop"
+        "https://www.dropbox.com/s/gwyymfi510tzoak/steam-clean")
+md5sums=('2ec8c8172fd34a1c0d007d7250509f42'
+         '1d83a1df55d677f35ce415e0750f4448'
+         'ac0e03d70f1101331598b2b32ed9bac3'
+         'b106b44d669ffe976968ceb93329cd53'
+         '87882cc8d25b8458161cf7b1fa12f762'
+         '403e83210eac854634199e59cb331f91'
+         '2bd253061f8e82682afd7739bf3737d3'
+         '8228a2493c3fe6c8df0fb2e3357c510a')
+provides=('steam' 'steam-native')
+replaces=('steam' 'steam-native')
+if [[ "$CARCH" == "x86_64" ]]; then
+  #depends+=(lib32-libgl lib32-mesa-libgl lib32-gcc-libs lib32-libx11)
+  optdepends=(
+  'lib32-mesa-dri: for open source driver users'
+  'lib32-catalyst-utils: for AMD Catalyst users'
+  'lib32-nvidia-utils: for NVIDIA proprietary blob users'
+  'lib32-flashplugin: for flash video'
+  'lib32-alsa-plugins: for pulseaudio on some games'
+  )
+prepare() {
+    patch -d "$_pkgname" -Np1 -i "$srcdir/lib32-flashplugin-path.patch"
+    patch -d "$_pkgname" -Np1 -i "$srcdir/alsa_sdl_audiodriver.patch"
+    patch -d "$_pkgname" -Np1 -i "$srcdir/lib_path_and_close_min.patch"
+}
+else
+    optdepends=('flashplugin: for flash videos')
+prepare() {
+    patch -d "$_pkgname" -Np1 -i "$srcdir/alsa_sdl_audiodriver.patch"
+    patch -d "$_pkgname" -Np1 -i "$srcdir/lib_path_and_close_min.patch"
+}
+fi
+
+package() {
+    depends=(
+      'bash' 'desktop-file-utils' 'hicolor-icon-theme' 'curl'
+      'dbus' 'freetype2'  'gdk-pixbuf2' 'ttf-font' 'zenity'
+      'libindicator-gtk2' 'libindicator-gtk3' 'dhcp-client'
+      'networkmanager' 'wpa_supplicant' 'mono' 'mono-addins'
+      )
+
+  if [[ "$CARCH" == x86_64 ]]; then
+	source+=("https://www.dropbox.com/s/9xxku2o253ft6r0/lib32-nm09810.tar.xz")
+	sha256sums+=('b56b9da85e5647ef2b8013d14378b30917d7701cd61b27ba6a39045ab5ecc529')
+        depends+=('lib32-libgl' 'lib32-gcc-libs' 'lib32-libx11')
+  #Steam native deps
+	depends+=('lib32-libxinerama' 'lib32-pango' 'lib32-openal' 'lib32-gdk-pixbuf2' 'lib32-gtk2' 'lib32-libgcrypt15' 'lib32-dbus-glib' 'lib32-libusb' 'lib32-libnl' 'lib32-polkit' 'lib32-pam' 'lib32-cracklib' 'lib32-libtirpc' 'lib32-js17' 'lib32-libpng12' 'lib32-systemd' 'lib32-gconf' 'lib32-libappindicator' 'lib32-nss' 'lib32-libsoup' 'lib32-polkit' 'lib32-libnl' 'lib32-dbus-glib' 'iproute2' 'lib32-libpulse')
+  #Common game deps
+	depends+=('lib32-sdl' 'lib32-sdl_image' 'lib32-sdl_mixer' 'lib32-sdl2' 'lib32-sdl2_image' 'lib32-tcp_wrappers' 'lib32-speex' 'lib32-gperftools' 'lib32-libcurl-gnutls')
+  #Provides/conflicts
+        provides+=('lib32-libudev.so.0' 'lib32-networkmanager'=0.9.8.10 'lib32-nm-glib'=0.9.8.10)
+        conflicts+=('chromium-browser-bin' 'lib32-libudev.so.0' 'lib32-networkmanager' 'lib32-nm-glib')
+  #Compat udev/NM
+	mkdir -p "$pkgdir/usr/lib32"
+	ln -s /usr/lib32/libudev.so ${pkgdir}/usr/lib32/libudev.so.0
+	tar -xJf "$srcdir/lib32-nm09810.tar.xz" -C "$pkgdir" --no-same-owner
+
+  else
+  #Steam native deps
+	depends+=('libxinerama' 'pango' 'openal' 'gtk2' 'dbus-glib' 'libusb' 'libnl' 'polkit' 'pam' 'cracklib' 'libtirpc' 'js17' 'libpng12' 'libgcrypt15' 'systemd' 'gconf' 'libappindicator-gtk2' 'libappindicator-gtk3' 'nss' 'libpulse')
+  #Common game deps
+	depends+=('sdl' 'sdl_image' 'sdl_mixer' 'sdl2' 'sdl2_image' 'tcp_wrappers' 'speex' 'gperftools' 'libcurl-gnutls')
+  #Provides/conflicts
+	provides+=('libudev.so.0')
+	conflicts+=('chromium-browser-bin' 'libudev.so.0')
+  #Compat udev
+	mkdir -p "$pkgdir/usr/lib"
+	ln -s /usr/lib/libudev.so ${pkgdir}/usr/lib/libudev.so.0
+  fi
+
+
+  mkdir -p "$pkgdir/usr/share/applications"
+  cp "$srcdir/steam-valvelib.desktop" "$pkgdir/usr/share/applications/steam-valvelib.desktop"
+  chmod +x "$pkgdir/usr/share/applications/steam-valvelib.desktop"
+  cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/share/applications/steam-locallib.desktop"
+  chmod +x "$pkgdir/usr/share/applications/steam-locallib.desktop"
+  cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/share/applications/steam-clean.desktop"
+  chmod +x "$pkgdir/usr/share/applications/steam-locallib.desktop"
+  cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/bin/steam-clean"
+  chmod +x "$pkgdir/usr/bin/steam-clean"
+
+  # Install license
+  make -C "$_pkgname" DESTDIR="$pkgdir" install
+  install -Dm644 "$pkgdir/usr/share/doc/steam/steam_install_agreement.txt" "$pkgdir/usr/share/licenses/steam/LICENSE"
+
+  # blank steamdeps because apt-get
+  ln -sf /bin/true "$pkgdir/usr/bin/steamdeps"
+
+  # Remove orig launcher
+  rm "$pkgdir/usr/share/applications/steam.desktop" 
+}
