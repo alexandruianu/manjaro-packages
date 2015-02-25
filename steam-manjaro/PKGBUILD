@@ -101,7 +101,7 @@ package() {
   cp "$srcdir/steam-clean.desktop" "$pkgdir/usr/share/applications/steam-clean.desktop"
   chmod +x "$pkgdir/usr/share/applications/steam-locallib.desktop"
   mkdir -p "$pkgdir/usr/bin"
-  cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/bin/steam-clean"
+  cp "$srcdir/steam-clean" "$pkgdir/usr/bin/steam-clean"
   chmod +x "$pkgdir/usr/bin/steam-clean"
 
   # Install license
