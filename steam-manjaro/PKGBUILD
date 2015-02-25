@@ -19,14 +19,20 @@ source=("http://repo.steampowered.com/$_pkgname/pool/$_pkgname/s/$_pkgname/${_pk
         "https://www.dropbox.com/s/1zso4zuud3zz91l/steam-locallib.desktop"
         "https://www.dropbox.com/s/psf9xgcu5we6b6t/steam-clean.desktop"
         "https://www.dropbox.com/s/gwyymfi510tzoak/steam-clean")
-md5sums=('2ec8c8172fd34a1c0d007d7250509f42'
-         '1d83a1df55d677f35ce415e0750f4448'
-         'ac0e03d70f1101331598b2b32ed9bac3'
-         'b106b44d669ffe976968ceb93329cd53'
-         '87882cc8d25b8458161cf7b1fa12f762'
-         '403e83210eac854634199e59cb331f91'
-         '2bd253061f8e82682afd7739bf3737d3'
-         '8228a2493c3fe6c8df0fb2e3357c510a')
+sha256sums=('fd893b5c2f5585be1cd8a83f4a6c7d523a2bd985a91587adb5afaccd6fa12fb0'
+         '87b9e9f74709a43fb8424d7bb3074fb576f72c56d78a045e3b4ed4719600b0fa'
+         '174a110eda1c9d5b1c92a4490b266b31918559bbf8292a94905221c92da4bc0e'
+         'e8cfb17ff874af0cf40d3135c4daaa102c02d658df697f8c3a7cc99a0c506432'
+         'e96513262eb87be2a4f665e9336ec2a4ccfcfe41f244c8386d4c2efc330daafe'
+         '20eecd31cc99ee8882f2838d7d2a1930918be2d22a26e8800d143b2aedfb23af'
+         '3273349686e2d80420f060e089456884913fd6ed469eb7f03805b6aa2a271be9'
+         '8bbcbd2f29ef1ac62b49d9c2770be9140a447301dcdeb83c94d1f3800228b360')
+
+  if [[ "$CARCH" == x86_64 ]]; then
+	source+=("https://www.dropbox.com/s/9xxku2o253ft6r0/lib32-nm09810.tar.xz")
+	sha256sums+=('b56b9da85e5647ef2b8013d14378b30917d7701cd61b27ba6a39045ab5ecc529')
+fi
+
 provides=('steam' 'steam-native')
 replaces=('steam' 'steam-native')
 if [[ "$CARCH" == "x86_64" ]]; then
@@ -60,8 +66,6 @@ package() {
       )
 
   if [[ "$CARCH" == x86_64 ]]; then
-	source+=("https://www.dropbox.com/s/9xxku2o253ft6r0/lib32-nm09810.tar.xz")
-	sha256sums+=('b56b9da85e5647ef2b8013d14378b30917d7701cd61b27ba6a39045ab5ecc529')
         depends+=('lib32-libgl' 'lib32-gcc-libs' 'lib32-libx11')
   #Steam native deps
 	depends+=('lib32-libxinerama' 'lib32-pango' 'lib32-openal' 'lib32-gdk-pixbuf2' 'lib32-gtk2' 'lib32-libgcrypt15' 'lib32-dbus-glib' 'lib32-libusb' 'lib32-libnl' 'lib32-polkit' 'lib32-pam' 'lib32-cracklib' 'lib32-libtirpc' 'lib32-js17' 'lib32-libpng12' 'lib32-systemd' 'lib32-gconf' 'lib32-libappindicator' 'lib32-nss' 'lib32-libsoup' 'lib32-polkit' 'lib32-libnl' 'lib32-dbus-glib' 'iproute2' 'lib32-libpulse')
@@ -96,6 +100,7 @@ package() {
   chmod +x "$pkgdir/usr/share/applications/steam-locallib.desktop"
   cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/share/applications/steam-clean.desktop"
   chmod +x "$pkgdir/usr/share/applications/steam-locallib.desktop"
+  mkdir -p "$pkgdir/usr/bin"
   cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/bin/steam-clean"
   chmod +x "$pkgdir/usr/bin/steam-clean"
 
