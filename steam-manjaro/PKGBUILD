@@ -98,7 +98,7 @@ package() {
   chmod +x "$pkgdir/usr/share/applications/steam-valvelib.desktop"
   cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/share/applications/steam-locallib.desktop"
   chmod +x "$pkgdir/usr/share/applications/steam-locallib.desktop"
-  cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/share/applications/steam-clean.desktop"
+  cp "$srcdir/steam-clean.desktop" "$pkgdir/usr/share/applications/steam-clean.desktop"
   chmod +x "$pkgdir/usr/share/applications/steam-locallib.desktop"
   mkdir -p "$pkgdir/usr/bin"
   cp "$srcdir/steam-locallib.desktop" "$pkgdir/usr/bin/steam-clean"
